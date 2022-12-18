@@ -25,7 +25,7 @@ let usage =
     utube-go -p path (where path is path to a text file with each line containing a url)
 "
 
-let printAndExit (s: string) (exitNo: int) =
+let printAndExit (exitNo: int) (s: string) =
     JS.console.error (s)
     Node.Api.``process``.exit (exitNo)
     failwithf "will never reach here"
@@ -38,8 +38,8 @@ let input =
         | [| "-p"; p |]
         | [| "--path"; p |] -> FilePathInput p
         | [| "-h" |]
-        | [| "--help" |] -> printAndExit usage 0
-        | _ -> printAndExit usage 1
+        | [| "--help" |] -> printAndExit 0 usage
+        | _ -> printAndExit 1 usage
 
 let urlPatt = new Regex(@"^http(s?)://")
 
@@ -93,13 +93,16 @@ promise {
     JS.console.log ("totally", total)
 
     for (idx, validatedUrl) in urls |> Seq.indexed do
+        let idx = idx + 1
         let (ValidatedUrl url) = validatedUrl
         printf "Sending url %d/%d: %s\n" idx total url
         do! sendUrl validatedUrl
-        let isLast = (idx = total - 1)
+        let isLast = (idx = total)
 
         if isLast then
-            printf "Done sending %d urls...\n" total
+            let gotoUrl = "https://github.com/foresightyj/utube-download/actions"
+            printf "Done sending %d urls...\n\nAnd go %s to checkout results\n\n" total gotoUrl
+            return ()
         else
             JS.console.log ("Sleep for 10s...")
             do! Promise.sleep (10000)
