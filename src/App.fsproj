@@ -4,6 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Utils.fs" />
+    <Compile Include="types/Minimist.fs" />
     <Compile Include="SimpleFs.fs" />
     <Compile Include="Octokit.fs" />
     <Compile Include="App.fs" />

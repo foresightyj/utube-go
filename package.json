@@ -5,18 +5,22 @@
   "scripts": {
     "postinstall": "dotnet tool restore",
     "start": "dotnet fable watch src",
-    "build": "dotnet fable src && webpack"
+    "build": "dotnet fable src && webpack",
+    "gen": "ts2fable ./node_modules/@types/minimist/index.d.ts ./src/Minimist.fs"
   },
   "bin": {
     "utube-go": "./dist/bundle.cjs"
   },
   "devDependencies": {
+    "@types/minimist": "^1.2.2",
+    "ts2fable": "^0.7.1",
     "webpack": "^5.75.0",
     "webpack-cli": "^4.10.0",
     "wrapper-webpack-plugin": "^2.2.2"
   },
   "version": "1.0.0",
   "dependencies": {
+    "minimist": "^1.2.7",
     "octokit": "^2.0.10"
   }
 }

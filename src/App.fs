@@ -96,7 +96,7 @@ promise {
         let idx = idx + 1
         let (ValidatedUrl url) = validatedUrl
         printf "Sending url %d/%d: %s\n" idx total url
-        do! sendUrl validatedUrl
+        // do! sendUrl validatedUrl
         let isLast = (idx = total)
 
         if isLast then
